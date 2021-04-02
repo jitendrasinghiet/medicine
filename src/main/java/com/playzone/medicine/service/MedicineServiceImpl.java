@@ -16,39 +16,39 @@ import com.playzone.medicine.repository.MedicineRepository;
 import com.playzone.medicine.search.SpecificationBuilder;
 
 @Service
-public class PatientServiceImpl implements MedicineService{
+public class MedicineServiceImpl implements MedicineService{
 	
 	@Autowired
-	private MedicineRepository patientRepository;
+	private MedicineRepository medicineRepository;
 
 	@Override
 	public List<Medicine> getAll() {
-		return patientRepository.findAll();
+		return medicineRepository.findAll();
 	}
 
 	@Override
 	public Medicine getByID(Long id) {
-		Optional<Medicine> Patient = patientRepository.findById(id);
-		if (!Patient.isPresent())
+		Optional<Medicine> medicine = medicineRepository.findById(id);
+		if (!medicine.isPresent())
 			throw new MedicineNotFoundException(HttpStatus.NOT_FOUND.name(),"id-" + id);
-		return Patient.get();
+		return medicine.get();
 	}
 
 	@Override
 	public Medicine create(Medicine p) {
-		return patientRepository.save(p);
+		return medicineRepository.save(p);
 	}
 
 	@Override
 	public void update(Medicine p, Long id) {
 		getByID(id);//check exists
 		p.setId(id);		
-		patientRepository.save(p);		
+		medicineRepository.save(p);		
 	}
 
 	@Override
 	public void delete(Long id) {
-		patientRepository.deleteById(id);		
+		medicineRepository.deleteById(id);		
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class PatientServiceImpl implements MedicineService{
 	        }
 	        
 	        Specification<Medicine> spec = builder.build();
-	        return patientRepository.findAll(spec);
+	        return medicineRepository.findAll(spec);
 	}	
 
 }
