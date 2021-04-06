@@ -6,6 +6,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -62,6 +64,17 @@ public class MedicineServiceImpl implements MedicineService{
 	        
 	        Specification<Medicine> spec = builder.build();
 	        return medicineRepository.findAll(spec);
-	}	
+	}
+
+	@Override
+	public List<Medicine> getAllByPrice(Integer price, Pageable p) {
+		// TODO Auto-generated method stub
+		return medicineRepository.findAllByPrice(price, p);
+	}
+	
+	@Override
+	public Page<Medicine> getAllByPage(Pageable p) {
+		return medicineRepository.findAll(p);
+	}
 
 }

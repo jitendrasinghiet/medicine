@@ -2,6 +2,7 @@ package com.playzone.medicine.controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,9 @@ public interface MedicineOperations {
 
 	@GetMapping("")
 	public List<Medicine> retrieveAllMedicines();
+	
+	@GetMapping("/page/{num}/{size}") 
+	public Page<Medicine> retrieveAllMedicines(@PathVariable int num, @PathVariable int size);
 
 	@GetMapping("/{id}")
 	public Medicine retrieveMedicine(@PathVariable long id);

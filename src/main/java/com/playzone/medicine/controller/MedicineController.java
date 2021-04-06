@@ -4,6 +4,9 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -55,5 +58,11 @@ public class MedicineController implements MedicineOperations{
 	public ResponseEntity<Object> updateMedicine(@RequestBody Medicine medicine, @PathVariable long id) {
 		medicineService.update(medicine, id);
 		return ResponseEntity.noContent().build();
+	}
+
+	@Override
+	public Page<Medicine> retrieveAllMedicines(int num, int size) {
+		Pageable pageable = PageRequest.of(num, size);
+		return medicineService.getAllByPage(pageable);
 	}
 }
